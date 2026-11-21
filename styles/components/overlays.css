@@ -1,0 +1,253 @@
+@layer fds {
+  /* Anchored surfaces: top layer via [popover], positioned in JS with position: fixed. */
+  .fds-floating {
+    position: fixed;
+    inset: auto;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--fds-line);
+    border-radius: var(--fds-radius-md);
+    background: var(--fds-panel-raised);
+    color: var(--fds-foreground);
+    box-shadow: var(--fds-shadow-popover);
+    max-inline-size: calc(100vw - 1rem);
+    overflow: auto;
+  }
+  /* Browsers without the Popover API keep the element in normal flow of the fixed layer. */
+  .fds-floating:not([popover]) {
+    z-index: var(--fds-z-dropdown);
+  }
+  .fds-floating:focus-visible {
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .fds-popover {
+    padding: 1rem;
+    min-inline-size: 12rem;
+  }
+
+  .fds-tooltip {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8125rem;
+    pointer-events: none;
+    background: var(--fds-foreground);
+    color: var(--fds-background);
+    border-color: transparent;
+  }
+  .fds-tooltip:not([popover]) {
+    z-index: var(--fds-z-tooltip);
+  }
+
+  .fds-hover-card {
+    padding: 0.75rem;
+    inline-size: 18rem;
+  }
+  .fds-hover-card__trigger {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .fds-hover-card__trigger:focus-visible {
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Menus */
+  .fds-menu-surface {
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 11rem;
+    padding: 0.25rem;
+  }
+  .fds-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-block-size: var(--fds-control-h);
+    padding: 0 0.75rem;
+    border: 0;
+    border-radius: var(--fds-radius-sm);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+  .fds-menu-item:hover,
+  .fds-menu-item:focus-visible {
+    background: var(--fds-panel-soft, var(--fds-panel));
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: -2px;
+  }
+  .fds-menu-item:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .fds-menu-item--danger {
+    color: var(--fds-danger);
+  }
+  .fds-menu-item--check::before {
+    content: "";
+    inline-size: 1rem;
+    flex-shrink: 0;
+  }
+  .fds-menu-item--check[aria-checked="true"]::before {
+    content: "✓";
+    text-align: center;
+  }
+  .fds-menu-label {
+    padding: 0.5rem 0.75rem 0.25rem;
+    color: var(--fds-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .fds-menu-separator {
+    block-size: 1px;
+    margin-block: 0.25rem;
+    background: var(--fds-line);
+  }
+  .fds-context-menu-area:focus-visible {
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Listbox (Combobox / SelectMenu) */
+  .fds-listbox {
+    margin: 0;
+    padding: 0.25rem;
+    list-style: none;
+    max-block-size: 16rem;
+  }
+  .fds-listbox__option,
+  .fds-listbox__empty {
+    display: flex;
+    align-items: center;
+    min-block-size: var(--fds-control-h);
+    padding: 0 0.75rem;
+    border-radius: var(--fds-radius-sm);
+    cursor: pointer;
+  }
+  .fds-listbox__empty {
+    color: var(--fds-muted);
+    cursor: default;
+  }
+  .fds-listbox__option[data-active] {
+    background: var(--fds-panel-soft, var(--fds-panel));
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: -2px;
+  }
+  .fds-listbox__option[aria-selected="true"] {
+    font-weight: 600;
+  }
+  .fds-listbox__option[aria-selected="true"]::after {
+    content: "✓";
+    margin-inline-start: auto;
+  }
+  .fds-listbox__option[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .fds-select-menu {
+    display: flex;
+    align-items: center;
+    text-align: start;
+    cursor: pointer;
+  }
+  .fds-select-menu::after {
+    content: "";
+    margin-inline-start: auto;
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
+    transform: rotate(45deg);
+  }
+  .fds-select-menu__placeholder {
+    color: var(--fds-muted);
+  }
+
+  /* Calendar */
+  .fds-calendar {
+    inline-size: max-content;
+    max-inline-size: 100%;
+  }
+  .fds-calendar__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-block-end: 0.5rem;
+  }
+  .fds-calendar__heading {
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  .fds-calendar__nav {
+    min-inline-size: var(--fds-control-h);
+    min-block-size: var(--fds-control-h);
+    border: 1px solid var(--fds-line);
+    border-radius: var(--fds-radius-md);
+    background: transparent;
+    color: inherit;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+  .fds-calendar__grid {
+    border-collapse: collapse;
+  }
+  .fds-calendar__grid th {
+    padding: 0.25rem;
+    color: var(--fds-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  .fds-calendar__grid td {
+    padding: 0;
+    text-align: center;
+  }
+  .fds-calendar__day {
+    inline-size: var(--fds-control-h);
+    block-size: var(--fds-control-h);
+    border: 1px solid transparent;
+    border-radius: var(--fds-radius-md);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+  }
+  .fds-calendar__day:hover {
+    background: var(--fds-panel-soft, var(--fds-panel));
+  }
+  .fds-calendar__day[data-today] {
+    border-color: var(--fds-line);
+  }
+  .fds-calendar__day[data-selected] {
+    background: var(--fds-accent);
+    color: var(--fds-on-accent);
+    font-weight: 600;
+  }
+  .fds-calendar__day[aria-disabled="true"] {
+    opacity: 0.4;
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+  .fds-calendar__day:focus-visible,
+  .fds-calendar__nav:focus-visible {
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* DatePicker */
+  .fds-date-picker > .fds-button {
+    min-inline-size: var(--fds-control-h);
+    padding-inline: 0.75rem;
+    border-radius: 0 var(--fds-radius-md) var(--fds-radius-md) 0;
+  }
+  .fds-date-picker > .fds-control {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+}

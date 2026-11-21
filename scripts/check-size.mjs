@@ -36,7 +36,17 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { componentNames } from "./components.mjs";
 
 const prefix = (name) => `fds-${name.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()}`;
-const sample = ["Separator", "Spinner", "Kbd", "Tabs", "Checkbox", "Avatar"];
+const sample = [
+  "Separator",
+  "Spinner",
+  "Kbd",
+  "Tabs",
+  "Checkbox",
+  "Avatar",
+  "Tooltip",
+  "Calendar",
+  "Combobox",
+];
 mkdirSync("artifacts/treeshake", { recursive: true });
 for (const name of sample) {
   writeFileSync(

@@ -228,19 +228,20 @@ for (const theme of ["funder", "portare"]) {
 
 test("Studio preview, theme mode and empty state work together", async ({ page }) => {
   await page.goto("/");
+  const preview = page.getByRole("region", { name: "Interactive component preview" });
   await expect(page.getByLabel("Theme", { exact: true })).toHaveValue("studio");
   await expect(page.locator("body")).toHaveCSS("font-family", /DM Sans/);
-  await page.getByRole("tab", { name: "Overview", exact: true }).focus();
+  await preview.getByRole("tab", { name: "Overview", exact: true }).focus();
   await page.keyboard.press("ArrowRight");
-  await expect(page.getByRole("tab", { name: "Activity", exact: true })).toBeFocused();
-  await expect(page.getByRole("tabpanel")).toContainText("Monthly statement");
+  await expect(preview.getByRole("tab", { name: "Activity", exact: true })).toBeFocused();
+  await expect(preview.getByRole("tabpanel")).toContainText("Monthly statement");
   await page.keyboard.press("End");
-  await expect(page.getByRole("tab", { name: "Settings", exact: true })).toBeFocused();
+  await expect(preview.getByRole("tab", { name: "Settings", exact: true })).toBeFocused();
   await page.getByLabel("Workspace name").fill("My workspace");
   await page.getByRole("button", { name: "Save preferences" }).click();
-  await expect(page.getByRole("tabpanel")).toContainText("Preferences saved.");
+  await expect(preview.getByRole("tabpanel")).toContainText("Preferences saved.");
   await page.getByLabel("Workspace name").fill("Another workspace");
-  await expect(page.getByRole("tabpanel")).not.toContainText("Preferences saved.");
+  await expect(preview.getByRole("tabpanel")).not.toContainText("Preferences saved.");
   await page.getByRole("button", { name: "Create view" }).click();
   await expect(page.getByText("My first view", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Remove view" }).click();

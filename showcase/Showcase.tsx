@@ -30,6 +30,7 @@ import {
   Toast,
   ToastRegion,
 } from "../src/index.js";
+import { MorePrimitives } from "./MorePrimitives.js";
 
 const repository = "https://github.com/scottlinddk/ui";
 const installCommand = "npm install @scttlnd/ui";
@@ -626,6 +627,7 @@ export function Showcase({
                 </Button>
               </div>
             </Panel>
+            <MorePrimitives />
             <Panel
               className="empty-example"
               title="Room for what's next"

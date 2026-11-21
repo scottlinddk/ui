@@ -11,5 +11,6 @@
 @import "./components/primitives.css";
 @import "./components/controls.css";
 @import "./components/disclosure.css";
+@import "./components/overlays.css";
 @import "./components/a11y.css";
 @import "./themes/studio.css";
