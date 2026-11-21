@@ -12,6 +12,7 @@ export default defineConfig({
       input: {
         index: resolve(import.meta.dirname, "index.html"),
         grain: resolve(import.meta.dirname, "grain.html"),
+        components: resolve(import.meta.dirname, "components.html"),
       },
     },
   },

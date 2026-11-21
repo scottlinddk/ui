@@ -30,6 +30,8 @@ import {
   Toast,
   ToastRegion,
 } from "../src/index.js";
+import { MorePrimitives } from "./MorePrimitives.js";
+import { search } from "./theme.js";
 
 const repository = "https://github.com/scottlinddk/ui";
 const installCommand = "npm install @scttlnd/ui";
@@ -147,6 +149,7 @@ export function Showcase({
         </a>
         <nav aria-label="Main navigation">
           <a href="#components">Components</a>
+          <a href={`./components.html${search()}`}>All components</a>
           <a href="#foundations">Foundations</a>
           <a href="#get-started">Get started</a>
         </nav>
@@ -626,6 +629,7 @@ export function Showcase({
                 </Button>
               </div>
             </Panel>
+            <MorePrimitives />
             <Panel
               className="empty-example"
               title="Room for what's next"

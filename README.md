@@ -33,7 +33,7 @@ Read [AGENTS.md](AGENTS.md) and [adoption guide](docs/ADOPTION.md) before integr
 
 ## Showcase
 
-The component showcase (`npm run showcase:dev` locally, `npm run showcase:build` for a static build) in [`showcase/index.html`](showcase/index.html) is deployed to GitHub Pages by `.github/workflows/pages.yml` when its components, styles, dependencies, or showcase change on `main`: <https://scottlinddk.github.io/ui/>. One-time setup: repository **Settings → Pages → Source: GitHub Actions**.
+The component showcase (`npm run showcase:dev` locally, `npm run showcase:build` for a static build) in [`showcase/index.html`](showcase/index.html) is deployed to GitHub Pages by `.github/workflows/pages.yml` when its components, styles, dependencies, or showcase change on `main`: <https://scottlinddk.github.io/ui/>. An **all-components page** lists every public export with a live demo, import line and client/server label in any theme: [`showcase/components.html`](showcase/components.html), deployed at <https://scottlinddk.github.io/ui/components.html>. `src/all-components.test.tsx` fails when an export is missing from its registry (`showcase/components-registry.tsx`), so add new components there. One-time setup: repository **Settings → Pages → Source: GitHub Actions**.
 
 ## Components
 
@@ -51,6 +51,11 @@ The component showcase (`npm run showcase:dev` locally, `npm run showcase:build`
 | `Toast`, `ToastRegion`                                                        | Controlled transient message with optional Undo; pauses on hover/focus; danger stays until dismissed    | Shared                                                           |
 | `Table`, `TableHead`, `TableBody`, `TableRow`, `TableCell`, `TableHeaderCell` | Semantic table: keyboard-scrollable region, sticky header, 48px/32px rows, numeric columns, `aria-sort` | Shared                                                           |
 | `Dialog`, `Sheet`, `AlertDialog` | Controlled modals on native `<dialog>`: focus returns to the trigger, Escape and backdrop close, `Sheet` slides from an edge (safe-area aware), `AlertDialog` focuses Cancel and has a danger confirm. See [ADR 0001](docs/adr/0001-native-dialog-overlays.md) | Family Meals `BottomSheet` |
+| `Separator`, `Spinner`, `Kbd`, `Label`, `ButtonGroup`, `InputGroup`, `Item*`, `Breadcrumb*`, `Pagination*`, `Progress`, `ScrollArea`, `Collapsible` | Static, server-compatible primitives (no JavaScript state) | shadcn set |
+| `Avatar`, `Checkbox`, `FieldSet`, `RadioGroup`/`Radio`, `Switch`, `Toggle`/`ToggleGroup`, `Slider`, `InputOTP`, `Tabs*`, `Accordion` | Interactive primitives on native elements (real inputs, `<details>`, `role="tab"`); client components | shadcn set |
+| `Popover*`, `Tooltip`, `HoverCard*`, `DropdownMenu*`, `ContextMenu*`, `Combobox`, `SelectMenu`, `Calendar`, `DatePicker` | Anchored components on the native Popover API (top layer, flips at viewport edges; Escape and outside press close). `Calendar`/`DatePicker` exchange `Date`/ISO strings; locale and disabled days come from the app. Tooltip and HoverCard never hold required information | shadcn set |
+
+**Tree-shaking:** every component is its own module (`dist/components/<Name>.mjs`), the root barrel is plain re-exports, and `sideEffects` is limited to CSS, so a bundler drops unused components. `npm run test:package` enforces this. CSS is the exception: `styles.css` is one stylesheet for all components.
 
 Components render only `--fds-*` styled markup. Formatting, locale, currency and calculations stay in the consuming app (pass pre-formatted strings, or `formatValue`). The published modules for `Button`, `Dialog`, `Menu`, `Field` (including its native controls), `Panel` and `Toast` carry `"use client"`. The root barrel and static primitives such as `Badge` remain server-compatible. Event handlers, `Menu.items` callbacks and `Field.children` render functions still belong in a consumer client component because functions cannot cross the server/client boundary. See [Next.js verification](docs/verification/next-app-router.md).
 

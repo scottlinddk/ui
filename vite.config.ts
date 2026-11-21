@@ -1,4 +1,5 @@
 import { defineConfig } from "vite-plus";
+import { clientNames, componentNames } from "./scripts/components.mjs";
 
 export default defineConfig({
   fmt: {
@@ -8,16 +9,13 @@ export default defineConfig({
   },
   test: { exclude: ["**/node_modules/**", "**/dist/**", "e2e/**", "smoke/**"] },
   pack: {
-    entry: [
-      "src/index.ts",
-      "src/components/{Badge,Button,Dialog,Field,Menu,Meter,Metric,Notice,Panel,Skeleton,Table,Toast}.tsx",
-    ],
+    entry: ["src/index.ts", ...componentNames.map((name) => `src/components/${name}.tsx`)],
     unbundle: true,
     outExtensions: () => ({ js: ".mjs", dts: ".d.mts" }),
     platform: "neutral",
     outputOptions: {
       banner: (chunk) =>
-        /(?:^|\/)components\/(Button|Dialog|Field|Menu|Panel|Toast)\.mjs$/.test(chunk.fileName)
+        clientNames.has(chunk.fileName.replace(/^(?:.*\/)?components\//, "").replace(/\.mjs$/, ""))
           ? '"use client";'
           : "",
     },

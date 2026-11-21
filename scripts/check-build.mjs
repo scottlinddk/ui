@@ -1,11 +1,22 @@
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 
-const client = new Set(["Button", "Field", "Menu", "Panel"]);
-for (const name of ["Badge", "Button", "Field", "Menu", "Meter", "Metric", "Notice", "Panel"]) {
+import { clientNames, componentNames } from "./components.mjs";
+
+for (const name of componentNames) {
   const code = readFileSync(`dist/components/${name}.mjs`, "utf8");
-  assert.equal(code.startsWith('"use client";'), client.has(name), `${name} client boundary`);
+  assert.equal(code.startsWith('"use client";'), clientNames.has(name), `${name} client boundary`);
   assert(existsSync(`dist/components/${name}.d.mts`), `${name} declarations`);
+}
+// Tree-shaking: the barrel is plain re-exports, and no component module imports another
+// component except through its own path (so unused components are never pulled in).
+const pkg = JSON.parse(readFileSync("package.json", "utf8"));
+assert.deepEqual(pkg.sideEffects, ["**/*.css"], "only CSS may have side effects");
+for (const name of componentNames) {
+  const code = readFileSync(`dist/components/${name}.mjs`, "utf8");
+  for (const [, dep] of code.matchAll(/from "\.\/(\w+)\.mjs"/g))
+    assert(componentNames.includes(dep), `${name} imports unknown module ${dep}`);
+  assert(!/^(?:document|window)\./m.test(code), `${name} has top-level side effects`);
 }
 const index = readFileSync("dist/index.mjs", "utf8");
 assert(!index.includes('"use client"'), "the barrel must remain usable from the server");

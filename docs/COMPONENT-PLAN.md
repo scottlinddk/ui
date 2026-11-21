@@ -3,6 +3,8 @@
 Status (2026-11-21, package 0.8.0): Phase 0 is shipped. Parts of later phases shipped **out of phase order** and without new dependencies: `Skeleton`, `Toast` and `Table` (0.7.0), then `Dialog`, `Sheet` and `AlertDialog` on native `<dialog>` ([ADR 0001](adr/0001-native-dialog-overlays.md)). The release numbers in section 6 are historical: releases now follow the changeset policy and each shipped PR picks its own bump. Everything not marked **Exists** or **Shipped** below is still proposed. See [Phase 0 verification](verification/phase-0.md).
 Scope: a reference set of 66 common UI components (reviewed 2026-11-08), triaged against what this package ships today.
 
+> **Update 2026-11-21 (D1 resolved):** no headless dependency was added. All remaining non-excluded components now ship hand-built on native elements: static primitives, form controls and disclosure, plus anchored components (Popover, Tooltip, HoverCard, DropdownMenu, ContextMenu, Combobox, SelectMenu, Calendar, DatePicker) on the native Popover API with a small placement helper (`src/lib/floating.ts`). `@base-ui/react` is no longer a candidate unless a gap appears (for example virtualised lists). Still **Out** by AGENTS.md: chat/AI pieces, Sidebar, Navigation Menu, Chart, Data Table, Command. Drawer is covered by `Sheet`.
+
 ## 1. Summary
 
 - Follow the conventional **component set and API shape** of modern React UI libraries, but not their copy-paste, Tailwind-based implementations. This package is a published npm library with plain CSS and `--fds-*` tokens (AGENTS.md rules 1–3). We keep that.
