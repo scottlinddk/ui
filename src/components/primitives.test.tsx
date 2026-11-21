@@ -18,11 +18,15 @@ import {
   ButtonGroup,
   Button,
   Checkbox,
+  Collapsible,
   FieldSet,
   InputGroup,
   InputGroupAddon,
   Input,
   InputOTP,
+  Kbd,
+  KbdGroup,
+  Label,
   Item,
   ItemContent,
   ItemGroup,
@@ -233,5 +237,44 @@ describe("disclosure", () => {
     );
     expect(names[0]).toBeTruthy();
     expect(new Set(names).size).toBe(1);
+  });
+});
+
+describe("Collapsible, Kbd and Label", () => {
+  it("Collapsible is a native details that toggles and can start open", async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <>
+        <Collapsible title="Closed">a</Collapsible>
+        <Collapsible open title="Open">
+          b
+        </Collapsible>
+      </>,
+    );
+    const [closed, open] = Array.from(container.querySelectorAll("details"));
+    expect(closed?.open).toBe(false);
+    expect(open?.open).toBe(true);
+    await user.click(screen.getByText("Closed"));
+    expect(closed?.open).toBe(true);
+    expect(await axe(container)).toHaveNoViolations();
+  });
+  it("Kbd renders a kbd element inside its group", () => {
+    const out = renderToStaticMarkup(
+      <KbdGroup>
+        <Kbd>Ctrl</Kbd>
+        <Kbd>K</Kbd>
+      </KbdGroup>,
+    );
+    expect(out).toContain("<kbd");
+    expect(out).toContain("fds-kbd-group");
+  });
+  it("Label associates with its control", () => {
+    render(
+      <>
+        <Label htmlFor="amount">Amount</Label>
+        <Input id="amount" />
+      </>,
+    );
+    expect(screen.getByLabelText("Amount").id).toBe("amount");
   });
 });
