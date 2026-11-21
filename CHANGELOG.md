@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.0
+
+### Minor Changes
+
+- [#41](https://github.com/scottlinddk/ui/pull/41) [`c99b3c3`](https://github.com/scottlinddk/ui/commit/c99b3c30cde6cebb4d89a6ee7920d86bd844ba64) Thanks [@scottlinddk](https://github.com/scottlinddk)! - Add the anchored components, still with no new dependencies: `Popover`, `Tooltip`, `HoverCard`, `DropdownMenu` (items, checkbox items, label, separator), `ContextMenu`, `Combobox`, `SelectMenu`, `Calendar` and `DatePicker`. Floating surfaces use the native Popover API (top layer, so no portals, z-index or theme-scoping problems) with a small built-in placement helper that flips and stays inside the viewport. `Calendar` takes and returns `Date`, week starts Monday, `locale` and disabled days come from the app; `DatePicker` always allows typed entry and exchanges ISO `YYYY-MM-DD` strings (pass `formatValue`/`parseValue` for a local display format). The existing `Menu` and native `Select` are unchanged. CSS is one more file inside `@layer fds`.
+
+- [#41](https://github.com/scottlinddk/ui/pull/41) [`c99b3c3`](https://github.com/scottlinddk/ui/commit/c99b3c30cde6cebb4d89a6ee7920d86bd844ba64) Thanks [@scottlinddk](https://github.com/scottlinddk)! - Add 26 components following the shadcn/ui set and API shape, with no new dependencies: `Separator`, `Spinner`, `Kbd`/`KbdGroup`, `Label`, `ButtonGroup`, `InputGroup`/`InputGroupAddon`, `Item*`, `Breadcrumb*`, `Pagination*`, `Progress`, `ScrollArea`, `Collapsible`, `Accordion`/`AccordionItem`, `Avatar`/`AvatarGroup`, `Checkbox`, `FieldSet`, `RadioGroup`/`Radio`, `Switch`, `Toggle`/`ToggleGroup`, `Slider`, `InputOTP` and `Tabs*`. Interactive ones carry `"use client"`; the rest stay server-compatible. Every component is its own build entry (derived from `src/components`), and `npm run test:package` now fails if a component pulls in another or has top-level side effects. New CSS is in three additional files inside `@layer fds`, using existing `--fds-*` tokens only.
+
 ## 0.9.0
 
 ### Minor Changes
