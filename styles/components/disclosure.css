@@ -1,0 +1,74 @@
+@layer fds {
+  /* Tabs */
+  .fds-tabs__list {
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto;
+    border-block-end: 1px solid var(--fds-line);
+  }
+  .fds-tabs__trigger {
+    min-block-size: var(--fds-control-h);
+    padding: 0 1rem;
+    border: 0;
+    border-block-end: 2px solid transparent;
+    background: transparent;
+    color: var(--fds-muted);
+    font: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .fds-tabs__trigger[aria-selected="true"] {
+    border-block-end-color: var(--fds-accent);
+    color: var(--fds-foreground);
+    font-weight: 600;
+  }
+  .fds-tabs__trigger:focus-visible,
+  .fds-tabs__content:focus-visible {
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: 2px;
+  }
+  .fds-tabs__content {
+    padding-block: 1rem;
+  }
+  .fds-tabs__content[hidden] {
+    display: none;
+  }
+
+  /* Collapsible / Accordion */
+  .fds-collapsible {
+    border-block-end: 1px solid var(--fds-line);
+  }
+  .fds-collapsible__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-block-size: var(--fds-control-h);
+    cursor: pointer;
+    font-weight: 500;
+    list-style: none;
+  }
+  .fds-collapsible__summary::-webkit-details-marker {
+    display: none;
+  }
+  .fds-collapsible__summary::after {
+    content: "";
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform var(--fds-duration-fast) var(--fds-ease-out);
+  }
+  .fds-collapsible[open] > .fds-collapsible__summary::after {
+    transform: rotate(-135deg);
+  }
+  .fds-collapsible__summary:focus-visible {
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: 2px;
+  }
+  .fds-collapsible__content {
+    padding-block-end: 1rem;
+    color: var(--fds-muted-strong);
+  }
+}

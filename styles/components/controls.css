@@ -1,0 +1,217 @@
+@layer fds {
+  /* Fieldset */
+  .fds-fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .fds-fieldset__legend {
+    margin-block-end: 0.375rem;
+    padding: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  /* Checkbox / Radio: the 44px row is the hit area. */
+  .fds-choice {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.75rem;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+  .fds-choice__input {
+    grid-area: 1 / 1;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    margin: 0;
+    accent-color: var(--fds-accent);
+  }
+  .fds-choice__label {
+    grid-area: 1 / 2;
+    cursor: pointer;
+  }
+  .fds-choice__label::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+  .fds-choice__hint {
+    grid-column: 2;
+    margin: 0;
+    color: var(--fds-muted);
+    font-size: 0.8125rem;
+  }
+  .fds-choice__input:focus-visible {
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: 2px;
+  }
+  .fds-choice__input:disabled,
+  .fds-choice__input:disabled + .fds-choice__label {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .fds-choice--card {
+    padding: 0.75rem;
+    border: 1px solid var(--fds-line);
+    border-radius: var(--fds-radius-md);
+  }
+  .fds-choice--card:has(:checked) {
+    border-color: var(--fds-accent);
+  }
+
+  /* Switch */
+  .fds-switch {
+    position: relative;
+    min-block-size: 2.75rem;
+    display: flex;
+    align-items: center;
+  }
+  .fds-switch__input {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .fds-switch__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    pointer-events: none;
+  }
+  .fds-switch__track {
+    position: relative;
+    flex-shrink: 0;
+    inline-size: 2.5rem;
+    block-size: 1.5rem;
+    border: 1px solid var(--fds-line);
+    border-radius: 999px;
+    background: var(--fds-panel-raised);
+    transition: background-color var(--fds-duration-fast) var(--fds-ease-out);
+  }
+  .fds-switch__track::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 2px;
+    inset-inline-start: 2px;
+    inline-size: 1.125rem;
+    block-size: 1.125rem;
+    border-radius: 50%;
+    background: var(--fds-muted-strong);
+    transition: transform var(--fds-duration-fast) var(--fds-ease-out);
+  }
+  .fds-switch__input:checked + .fds-switch__label .fds-switch__track {
+    border-color: var(--fds-accent);
+    background: var(--fds-accent);
+  }
+  .fds-switch__input:checked + .fds-switch__label .fds-switch__track::after {
+    background: var(--fds-on-accent);
+    transform: translateX(1rem);
+  }
+  .fds-switch__input:focus-visible + .fds-switch__label .fds-switch__track {
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: 2px;
+  }
+  .fds-switch__input:disabled {
+    cursor: not-allowed;
+  }
+  .fds-switch__input:disabled + .fds-switch__label {
+    opacity: 0.5;
+  }
+
+  /* Toggle / ToggleGroup */
+  .fds-toggle {
+    min-block-size: var(--fds-control-h);
+    min-inline-size: var(--fds-control-h);
+    padding: 0 0.75rem;
+    border: 1px solid var(--fds-line);
+    border-radius: var(--fds-radius-md);
+    background: transparent;
+    color: var(--fds-foreground);
+    font: inherit;
+    cursor: pointer;
+  }
+  .fds-toggle[aria-pressed="true"] {
+    border-color: var(--fds-accent);
+    background: var(--fds-panel-raised);
+    font-weight: 600;
+  }
+  .fds-toggle:focus-visible {
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: 2px;
+  }
+  .fds-toggle:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .fds-toggle-group {
+    display: inline-flex;
+    gap: 0.25rem;
+  }
+
+  /* Slider */
+  .fds-slider {
+    inline-size: 100%;
+    min-block-size: 2.75rem;
+    margin: 0;
+    accent-color: var(--fds-accent);
+    cursor: pointer;
+  }
+  .fds-slider:focus-visible {
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: 2px;
+  }
+  .fds-slider:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* InputOTP: the real input sits invisibly over the slots. */
+  .fds-otp {
+    position: relative;
+    display: inline-block;
+  }
+  .fds-otp__input {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: transparent;
+    caret-color: transparent;
+    font-size: 1rem;
+    opacity: 0.01;
+  }
+  .fds-otp__slots {
+    display: flex;
+    gap: 0.5rem;
+    pointer-events: none;
+  }
+  .fds-otp__slot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 2.75rem;
+    block-size: 3rem;
+    border: 1px solid var(--fds-line);
+    border-radius: var(--fds-radius-md);
+    background: var(--fds-panel-soft, var(--fds-panel));
+    font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .fds-otp__slot[data-active] {
+    border-color: var(--fds-accent);
+    outline: 2px solid var(--fds-focus-ring);
+    outline-offset: 2px;
+  }
+}
