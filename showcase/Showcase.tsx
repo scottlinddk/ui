@@ -211,7 +211,7 @@ export function Showcase({
             <p className="hero__description">
               A little less noise. A lot more clarity.
               <br />
-              One considered foundation for every financial interface.
+              One considered foundation for every interface.
             </p>
             <div className="hero__actions">
               <a className="action-link action-link--primary" href="#components">
@@ -252,7 +252,7 @@ export function Showcase({
                   Built to connect.
                 </p>
                 <div className="material-card__bottom">
-                  <span>FUNDER / INVESTOR / PORTARE</span>
+                  <span>ONE SYSTEM / MANY THEMES</span>
                   <span className="material-card__mark">
                     <i />
                     <i />
@@ -281,7 +281,7 @@ export function Showcase({
                   <i />
                   <i />
                 </span>
-                <span>your next financial interface</span>
+                <span>your next interface</span>
               </div>
               <span className="preview-live">
                 <span className="status-dot" /> Live preview
@@ -338,7 +338,7 @@ export function Showcase({
                     <div className="preview-metrics">
                       <Metric label="Total balance" value="DKK 284,920" />
                       <Metric label="Monthly change" value="+4.82 %" tone="success" />
-                      <Metric label="Available to invest" value="DKK 42,500" />
+                      <Metric label="Available" value="DKK 42,500" />
                     </div>
                     <div className="preview-bottom">
                       <div>
@@ -429,7 +429,7 @@ export function Showcase({
           </div>
         </section>
         <div className="product-strip">
-          <span>THREE PRODUCTS. ONE FOUNDATION.</span>
+          <span>MANY PRODUCTS. ONE FOUNDATION.</span>
           <div>
             <span>
               funder<span className="product-plus">+</span>
@@ -828,7 +828,7 @@ export function Showcase({
           </span>
           <span>Built to feel connected.</span>
         </a>
-        <p>Funder · Investor · Portare</p>
+        <p>Tokens · Components · Themes</p>
         <a href={repository}>
           Open source on GitHub <Icon name="arrow" size={14} />
         </a>
