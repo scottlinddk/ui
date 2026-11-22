@@ -1,6 +1,6 @@
 # Scttlnd UI
 
-Shared design tokens and primitive components for multiple products and themes (Funder, Portare, Investor, Studio, Classic, Nuance, Caffeine, BoligData, Tredjekort, Orbit). Each brand and product remains independent.
+Shared design tokens and primitive components for multiple products and themes (Funder, Portare, Investor, Studio, Classic, Nuance, Caffeine, BoligData, Tredjekort, Orbit, Exclusive). Each brand and product remains independent.
 
 ## Develop with Vite+
 
@@ -140,6 +140,19 @@ Notes and deviations from the source apps:
 - BoligData's `--color-border` (`#e6e8e2`) is intentionally soft; control borders use it as in the app.
 - The package loads no fonts. Load Inter, DM Serif Display, IBM Plex and Space Grotesk yourself or the stacks fall back to system fonts.
 - `--fds-brand-*` fields are decorative: use `--fds-brand-foreground` / `--fds-brand-muted` on the solid brand fields and `--fds-brand-ink` on the light ones. Contrast is tested in `src/product-themes.test.ts`. Try `?theme=boligdata&mode=dark` (or `tredjekort`, `orbit`) in the showcase.
+
+## Exclusive theme
+
+An opt-in boutique-retail theme: cool off-white page, white panels, warm ink actions with square corners, hairline dividers, and a muted gold and deep navy as the only brand colours. Light is the default; `data-fds-mode="dark"` gives a midnight-navy palette with cream ink.
+
+```tsx
+import "@scttlnd/ui/styles.css";
+import "@scttlnd/ui/themes/exclusive.css";
+```
+
+- Decorative brand fields: `--fds-brand-navy`, `--fds-brand-royal`, `--fds-brand-gold`, `--fds-brand-cream`. Use `--fds-brand-foreground` / `--fds-brand-muted` on navy and royal, and `--fds-brand-ink` on gold and cream. Contrast is tested in `src/product-themes.test.ts`.
+- Status and chart colours are additions chosen for AA contrast; the theme has no source values for them.
+- The package loads no fonts: the stack is Helvetica Neue, Arial and system fonts. Override `--fds-font-sans` with your own grotesque. Try `?theme=exclusive&mode=dark` in the showcase.
 
 ## Choosing a product theme
 

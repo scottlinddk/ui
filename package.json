@@ -32,7 +32,8 @@
     "./themes/caffeine.css": "./styles/themes/caffeine.css",
     "./themes/boligdata.css": "./styles/themes/boligdata.css",
     "./themes/tredjekort.css": "./styles/themes/tredjekort.css",
-    "./themes/orbit.css": "./styles/themes/orbit.css"
+    "./themes/orbit.css": "./styles/themes/orbit.css",
+    "./themes/exclusive.css": "./styles/themes/exclusive.css"
   },
   "publishConfig": {
     "access": "public",

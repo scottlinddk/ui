@@ -30,6 +30,7 @@ const themeOptions: ReadonlyArray<[string, string]> = [
   ["boligdata", "BoligData"],
   ["tredjekort", "Tredjekort"],
   ["orbit", "Orbit"],
+  ["exclusive", "Exclusive"],
   ["funder", "Funder"],
   ["investor", "Investor"],
   ["portare", "Portare (proposed light)"],

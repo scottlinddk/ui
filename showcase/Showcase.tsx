@@ -94,7 +94,16 @@ function SectionHeading({
 }
 
 /** Themes with a light and a dark palette, switched by data-fds-mode. */
-const modeThemes = ["studio", "classic", "nuance", "caffeine", "boligdata", "tredjekort", "orbit"];
+const modeThemes = [
+  "studio",
+  "classic",
+  "nuance",
+  "caffeine",
+  "boligdata",
+  "tredjekort",
+  "orbit",
+  "exclusive",
+];
 
 export function Showcase({
   theme = "studio",
@@ -174,6 +183,7 @@ export function Showcase({
             <option value="boligdata">BoligData</option>
             <option value="tredjekort">Tredjekort</option>
             <option value="orbit">Orbit</option>
+            <option value="exclusive">Exclusive</option>
             <option value="funder">Funder</option>
             <option value="investor">Investor</option>
             <option value="portare">Portare (proposed light)</option>

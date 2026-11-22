@@ -1,0 +1,110 @@
+@layer fds {
+  /*
+   * Exclusive: a restrained, boutique-retail look. Cool off-white page, white panels, warm ink actions with
+   * square corners, hairline dividers, and a muted gold and deep navy as the only brand colours. Light is the
+   * default; add data-fds-mode="dark" for the navy palette (cream ink on midnight, brighter gold). Import after
+   * styles.css.
+   *
+   * The theme defines no chart colours of its own, so chart-* are additions chosen to meet WCAG AA graphical
+   * contrast on these surfaces. The package loads no fonts: the stack falls back to the system grotesque.
+   */
+  :root,
+  [data-fds-theme="exclusive"] {
+    color-scheme: light;
+    --fds-panel-background-image: none;
+    --fds-panel-grain-content: none;
+    --fds-background: #f4f4f4;
+    --fds-foreground: #1b1916;
+    --fds-muted: #5c5750;
+    --fds-muted-strong: #3a3631;
+    --fds-line: #d9d6d0;
+    --fds-line-soft: #e8e6e1;
+    --fds-panel: #fff;
+    --fds-panel-raised: #fff;
+    --fds-panel-soft: #fafaf9;
+    --fds-accent: #1b1916;
+    --fds-accent-strong: #3a3631;
+    --fds-on-accent: #fff;
+    --fds-focus-ring: #151f37;
+    --fds-success: #1e6b3a;
+    --fds-warn: #8a5200;
+    --fds-danger: #b3261e;
+    --fds-on-danger: #fff;
+    --fds-on-success: #fff;
+    --fds-chart-1: #8a6a2f;
+    --fds-chart-2: #15397e;
+    --fds-chart-3: #1e6b3a;
+    --fds-chart-4: #7a3f6b;
+    --fds-chart-5: #b0502a;
+    --fds-chart-6: #0e7490;
+    --fds-chart-grid: #7d7870;
+    --fds-radius-sm: 2px;
+    --fds-radius-md: 4px;
+    --fds-radius-lg: 4px;
+    --fds-font-sans:
+      "Helvetica Neue", "Neue Haas Grotesk Text Pro", Arial, system-ui, -apple-system,
+      BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --fds-shadow-card: none;
+    --fds-shadow-popover: 0 2px 4px rgb(27 25 22 / 0.06), 0 14px 32px rgb(27 25 22 / 0.12);
+    --fds-shadow-dialog: 0 24px 64px rgb(27 25 22 / 0.22);
+    --fds-overlay: rgb(21 31 55 / 0.5);
+    /* Brand fields are decorative; use their paired foregrounds for text. */
+    --fds-brand-navy: #151f37;
+    --fds-brand-royal: #15397e;
+    --fds-brand-gold: #a68855;
+    --fds-brand-cream: #efe9dd;
+    --fds-brand-ink: #1b1916;
+    --fds-brand-foreground: #efe9dd;
+    --fds-brand-muted: #c9c1af;
+  }
+
+  :root:where([data-fds-mode="dark"]),
+  [data-fds-theme="exclusive"][data-fds-mode="dark"] {
+    color-scheme: dark;
+    --fds-background: #0d1220;
+    --fds-foreground: #efe9dd;
+    --fds-muted: #b5b0a3;
+    --fds-muted-strong: #d6d0c3;
+    --fds-line: #2c3a5c;
+    --fds-line-soft: #212c48;
+    --fds-panel: #151f37;
+    --fds-panel-raised: #1c2846;
+    --fds-panel-soft: #111a2f;
+    --fds-accent: #efe9dd;
+    --fds-accent-strong: #fff;
+    --fds-on-accent: #0d1220;
+    --fds-focus-ring: #c9a96a;
+    --fds-success: #6fd49a;
+    --fds-warn: #f0b060;
+    --fds-danger: #ff8f80;
+    --fds-on-danger: #0d1220;
+    --fds-on-success: #0d1220;
+    --fds-chart-1: #d4b377;
+    --fds-chart-2: #8fb0ee;
+    --fds-chart-3: #6fd49a;
+    --fds-chart-4: #d9a0c8;
+    --fds-chart-5: #f0966a;
+    --fds-chart-6: #5ccbe0;
+    --fds-chart-grid: #8089a3;
+    --fds-shadow-popover: 0 12px 32px rgb(0 0 0 / 0.55);
+    --fds-shadow-dialog: 0 24px 64px rgb(0 0 0 / 0.65);
+    --fds-overlay: rgb(0 0 0 / 0.65);
+    --fds-brand-gold: #c9a96a;
+  }
+
+  /*
+   * Component shapes. Buttons are square and panels are flat with a hairline edge, so hierarchy comes from
+   * surface colour and type rather than rounding or shadow. These rules apply wherever this theme is
+   * imported, or inside [data-fds-theme="exclusive"].
+   */
+  :is(:root, [data-fds-theme="exclusive"]) .fds-button {
+    border-radius: 0;
+  }
+  :is(:root, [data-fds-theme="exclusive"]) .fds-badge {
+    border-radius: var(--fds-radius-sm);
+  }
+  :is(:root, [data-fds-theme="exclusive"]) .fds-panel {
+    border-radius: var(--fds-radius-lg);
+    box-shadow: var(--fds-shadow-card);
+  }
+}
