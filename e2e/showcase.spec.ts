@@ -375,3 +375,57 @@ test("explicit grain surfaces remain available with the Studio default", async (
     "none",
   );
 });
+
+// Mobile must show everything desktop shows: layouts may reflow but never hide content or controls.
+for (const path of ["/", "/components.html"]) {
+  test(`mobile has feature parity with desktop: ${path}`, async ({ page }) => {
+    const collect = () => {
+      const visible = (el: Element) => {
+        const style = getComputedStyle(el);
+        const box = el.getBoundingClientRect();
+        return (
+          style.display !== "none" && style.visibility !== "hidden" && box.width * box.height > 0
+        );
+      };
+      const found = new Set<string>();
+      for (const el of document.querySelectorAll("body *")) {
+        if (el.closest("svg")) continue;
+        const own = [...el.childNodes]
+          .filter((node) => node.nodeType === 3)
+          .map((node) => node.textContent?.trim() ?? "")
+          .join(" ")
+          .trim();
+        const interactive = el.matches("a,button,input,select,textarea,summary,[role=tab]");
+        if (!own && !interactive) continue;
+        let shown = true;
+        for (let node: Element | null = el; node && shown; node = node.parentElement) {
+          shown = visible(node);
+        }
+        if (!shown) continue;
+        const label = interactive ? (el.getAttribute("aria-label") ?? (own || el.tagName)) : own;
+        found.add(`${interactive ? "control" : "text"}: ${label.slice(0, 60)}`);
+      }
+      return [...found];
+    };
+    const tabs = path === "/" ? ["Overview", "Activity", "Settings"] : [null];
+    const snapshot = async (width: number) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(path);
+      const result: Record<string, string[]> = {};
+      for (const tab of tabs) {
+        if (tab) await page.locator(`#tab-${tab}`).click();
+        result[tab ?? "page"] = await page.evaluate(collect);
+      }
+      return result;
+    };
+    const desktop = await snapshot(1280);
+    const mobile = await snapshot(390);
+    for (const key of Object.keys(desktop)) {
+      const onMobile = new Set(mobile[key]);
+      expect(
+        desktop[key].filter((item) => !onMobile.has(item)),
+        `hidden on mobile (${key})`,
+      ).toEqual([]);
+    }
+  });
+}
