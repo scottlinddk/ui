@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.10.1
+
+### Patch Changes
+
+- [#43](https://github.com/scottlinddk/ui/pull/43) [`09b0ee3`](https://github.com/scottlinddk/ui/commit/09b0ee3392bf5dca74e6f999d70301a3bbe20b1a) Thanks [@scottlinddk](https://github.com/scottlinddk)! - Showcase: make headings and descriptions generic instead of finance-specific. No component or token changes.
+
+- [#43](https://github.com/scottlinddk/ui/pull/43) [`bd27d54`](https://github.com/scottlinddk/ui/commit/bd27d546ff5548f8247414f5e1bf80b9cb5bde79) Thanks [@scottlinddk](https://github.com/scottlinddk)! - Showcase: mobile no longer hides content that desktop shows (live-preview indicator, status badge, footer tagline, "Meet the building blocks" link text). Adds an e2e check that fails if mobile hides anything desktop shows. No component or token changes.
+
+- [#43](https://github.com/scottlinddk/ui/pull/43) [`1d56014`](https://github.com/scottlinddk/ui/commit/1d56014bfdedbb3dcdf2ec0f1b073d3948c8fb56) Thanks [@scottlinddk](https://github.com/scottlinddk)! - Showcase: the live preview is now a composed, generic workspace (metrics, meters, team list, project table, searchable activity feed, and a fuller settings form) built only from the package's own primitives. No component or token changes.
+
 ## 0.10.0
 
 ### Minor Changes
