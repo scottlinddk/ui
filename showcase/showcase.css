@@ -1087,19 +1087,18 @@ button:focus-visible,
     gap: 8px;
   }
   .preview-toolbar .preview-live {
-    display: none;
+    gap: 5px;
+    flex-shrink: 0;
   }
   .preview-content {
     padding: 20px 16px 0;
   }
   .preview-heading {
     align-items: flex-start;
+    flex-wrap: wrap;
   }
   .preview-heading h2 {
     font-size: 19px;
-  }
-  .preview-heading .fds-badge {
-    display: none;
   }
   .preview-heading p:not(.overline) {
     font-size: 11px;
@@ -1150,15 +1149,14 @@ button:focus-visible,
   .preview-caption > span {
     gap: 6px;
   }
+  .preview-caption {
+    flex-wrap: wrap;
+  }
   .preview-caption a {
-    font-size: 0;
-    gap: 0;
+    gap: 6px;
     min-width: 44px;
     min-height: 44px;
     justify-content: flex-end;
-  }
-  .preview-caption a > span {
-    font-size: 14px;
   }
   .activity-row {
     min-height: 81px;
@@ -1259,9 +1257,6 @@ button:focus-visible,
   }
   .site-footer {
     padding: 20px max(20px, env(safe-area-inset-left)) max(20px, env(safe-area-inset-bottom));
-  }
-  .site-footer p {
-    display: none;
   }
   .site-footer > a:last-child {
     font-size: 9px;
