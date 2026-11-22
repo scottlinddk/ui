@@ -31,6 +31,7 @@ import {
   ToastRegion,
 } from "../src/index.js";
 import { MorePrimitives } from "./MorePrimitives.js";
+import { PreviewWorkspace } from "./PreviewWorkspace.js";
 import { search } from "./theme.js";
 
 const repository = "https://github.com/scottlinddk/ui";
@@ -109,7 +110,6 @@ export function Showcase({
   const [savedView, setSavedView] = useState(false);
   const [undoToast, setUndoToast] = useState(false);
   const [sortDescending, setSortDescending] = useState(true);
-  const [preferencesSaved, setPreferencesSaved] = useState(false);
   const [overlay, setOverlay] = useState<"dialog" | "sheet" | "filters" | "alert" | null>(null);
 
   async function copyCommand() {
@@ -333,89 +333,7 @@ export function Showcase({
                 className="preview-panel"
                 tabIndex={0}
               >
-                {preview === "Overview" ? (
-                  <>
-                    <div className="preview-metrics">
-                      <Metric label="Total balance" value="DKK 284,920" />
-                      <Metric label="Monthly change" value="+4.82 %" tone="success" />
-                      <Metric label="Available" value="DKK 42,500" />
-                    </div>
-                    <div className="preview-bottom">
-                      <div>
-                        <span className="overline">EVERYDAY ACCOUNT</span>
-                        <p>Everything in its right place.</p>
-                      </div>
-                      <div className="preview-bottom__detail">
-                        <span className="status-dot" /> Updated just now
-                      </div>
-                    </div>
-                  </>
-                ) : null}
-                {preview === "Activity" ? (
-                  <div className="activity-list">
-                    {[
-                      {
-                        label: "Monthly statement",
-                        detail: "November · Ready to view",
-                        status: "Available",
-                      },
-                      {
-                        label: "Account preferences",
-                        detail: "Your changes have been saved",
-                        status: "Completed",
-                      },
-                      {
-                        label: "Profile verification",
-                        detail: "A few details need your attention",
-                        status: "Review",
-                      },
-                    ].map((item) => (
-                      <div className="activity-row" key={item.label}>
-                        <div>
-                          <strong>{item.label}</strong>
-                          <p>{item.detail}</p>
-                        </div>
-                        <Badge tone={item.status === "Review" ? "warn" : "success"}>
-                          {item.status}
-                        </Badge>
-                      </div>
-                    ))}
-                  </div>
-                ) : null}
-                {preview === "Settings" ? (
-                  <form
-                    className="preview-settings"
-                    onSubmit={(event) => {
-                      event.preventDefault();
-                      setPreferencesSaved(true);
-                    }}
-                  >
-                    <Field label="Workspace name">
-                      {(control) => (
-                        <Input
-                          {...control}
-                          defaultValue="Personal workspace"
-                          onChange={() => setPreferencesSaved(false)}
-                        />
-                      )}
-                    </Field>
-                    <Field label="Currency">
-                      {(control) => (
-                        <Select {...control} onChange={() => setPreferencesSaved(false)}>
-                          <option>DKK — Danish krone</option>
-                          <option>EUR — Euro</option>
-                          <option>USD — US dollar</option>
-                        </Select>
-                      )}
-                    </Field>
-                    <div>
-                      <Button type="submit">Save preferences</Button>
-                      <span className="save-status" role="status">
-                        {preferencesSaved ? "Preferences saved." : ""}
-                      </span>
-                    </div>
-                  </form>
-                ) : null}
+                <PreviewWorkspace tab={preview} />
               </div>
             </div>
           </div>
