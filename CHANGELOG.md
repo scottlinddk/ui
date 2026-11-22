@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.0
+
+### Minor Changes
+
+- [#45](https://github.com/scottlinddk/ui/pull/45) [`35b176a`](https://github.com/scottlinddk/ui/commit/35b176acbeb628a8aaf1a48fc56ecd848d4517ff) Thanks [@scottlinddk](https://github.com/scottlinddk)! - Add the opt-in `Exclusive` theme (`@scttlnd/ui/themes/exclusive.css`): a restrained boutique-retail look with a cool off-white page, white panels, square ink buttons, muted gold and deep navy brand colours, and a midnight-navy dark mode via `data-fds-mode="dark"`. Existing themes are unchanged.
+
 ## 0.10.1
 
 ### Patch Changes
