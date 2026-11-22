@@ -152,6 +152,7 @@ import "@scttlnd/ui/themes/exclusive.css";
 
 - Decorative brand fields: `--fds-brand-navy`, `--fds-brand-royal`, `--fds-brand-gold`, `--fds-brand-cream`. Use `--fds-brand-foreground` / `--fds-brand-muted` on navy and royal, and `--fds-brand-ink` on gold and cream. Contrast is tested in `src/product-themes.test.ts`.
 - Status and chart colours are additions chosen for AA contrast; the theme has no source values for them.
+- Gradients: `--fds-brand-gradient-champagne`, `-cobalt`, `-satin` and `-pearl` are decorative fields for heroes and cards (champagne and pearl take `--fds-brand-ink`; cobalt and satin take `--fds-brand-foreground`, and cobalt's sky-blue top stop is highlight only, so keep text in its lower two thirds). The theme also applies them: `--fds-page-background-image` (pearl in light, satin in dark) for the page, `--fds-gradient-fill` for `Meter` and `Progress` fills, and `--fds-surface-gradient` for `Metric` tiles. Paint the page with `background-image: var(--fds-page-background-image, none)` on `body` (the showcase does); the token is undefined in other themes, so the fallback keeps them flat. Stop contrast is tested in `src/product-themes.test.ts`.
 - The package loads no fonts: the stack is Helvetica Neue, Arial and system fonts. Override `--fds-font-sans` with your own grotesque. Try `?theme=exclusive&mode=dark` in the showcase.
 
 ## Choosing a product theme

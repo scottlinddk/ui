@@ -29,6 +29,10 @@ html {
 body {
   margin: 0;
   background: var(--fds-background);
+  /* Optional per-theme page gradient (Exclusive); themes that do not define it paint the flat colour. */
+  background-image: var(--fds-page-background-image, none);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   color: var(--fds-foreground);
   font: var(--fds-text-base) / var(--fds-leading-normal) var(--fds-font-sans);
   -webkit-font-smoothing: antialiased;
