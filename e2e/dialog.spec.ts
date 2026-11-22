@@ -10,6 +10,7 @@ const themes = [
   "boligdata",
   "tredjekort",
   "orbit",
+  "exclusive",
   "funder",
   "investor",
   "portare",

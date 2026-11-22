@@ -1,5 +1,6 @@
 import boligdata from "../styles/themes/boligdata.css?url";
 import caffeine from "../styles/themes/caffeine.css?url";
+import exclusive from "../styles/themes/exclusive.css?url";
 import classic from "../styles/themes/classic.css?url";
 import funder from "../styles/themes/funder.css?url";
 import investor from "../styles/themes/investor.css?url";
@@ -17,6 +18,7 @@ export const themes = {
   boligdata,
   tredjekort,
   orbit,
+  exclusive,
   funder,
   investor,
   portare,
@@ -30,6 +32,7 @@ export const modeThemes: readonly string[] = [
   "boligdata",
   "tredjekort",
   "orbit",
+  "exclusive",
 ];
 
 /** Reads `?theme=` and `?mode=`, links the one theme stylesheet after the base CSS and sets data attributes. */

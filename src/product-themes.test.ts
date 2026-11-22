@@ -86,6 +86,15 @@ const specs: ThemeSpec[] = [
     inkFields: { light: ["brand-ember-bright"], dark: ["brand-ember-bright"] },
     marks: [],
   },
+  {
+    name: "exclusive",
+    fields: {
+      light: ["brand-navy", "brand-royal"],
+      dark: ["brand-navy", "brand-royal"],
+    },
+    inkFields: { light: ["brand-gold", "brand-cream"], dark: ["brand-gold", "brand-cream"] },
+    marks: [],
+  },
 ];
 
 for (const spec of specs) {

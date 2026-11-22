@@ -14,6 +14,7 @@ for (const theme of [
   "boligdata",
   "tredjekort",
   "orbit",
+  "exclusive",
   "funder",
   "investor",
   "portare",
@@ -42,9 +43,11 @@ for (const theme of [
                   ? "rgb(250, 250, 248)"
                   : theme === "orbit"
                     ? "rgb(244, 240, 238)"
-                    : theme === "portare"
-                      ? "rgb(250, 251, 252)"
-                      : "rgb(8, 9, 11)",
+                    : theme === "exclusive"
+                      ? "rgb(244, 244, 244)"
+                      : theme === "portare"
+                        ? "rgb(250, 251, 252)"
+                        : "rgb(8, 9, 11)",
     );
     expect(await page.locator("link[rel=stylesheet][id=fds-theme]").count()).toBe(1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
