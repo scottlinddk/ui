@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 /** Contrast checks for the BoligData, Tredjekort and Orbit themes, mirroring caffeine-theme.test.ts. */
 const base = readFileSync("styles/tokens.css", "utf8");
@@ -165,3 +165,60 @@ for (const spec of specs) {
     expect(declarations(blocks[0])["--fds-panel-background-image"]).toBe("none");
   });
 }
+
+/** Exclusive ships gradients; every stop under text must keep that text readable. */
+describe("exclusive gradients", () => {
+  const css = readFileSync("styles/themes/exclusive.css", "utf8");
+  const [lightBlock, darkBlock] = css.split(':root:where([data-fds-mode="dark"])');
+  const hexStops = (token: string, block: string) => {
+    const match = block.match(new RegExp(`${token}:([^;]+);`));
+    expect(match, `${token} is defined`).not.toBeNull();
+    return [...match![1].matchAll(/#[0-9a-f]{6}\b/gi)].map((m) => m[0]);
+  };
+  const fg = (block: string, token: string) =>
+    block.match(new RegExp(`${token}:\\s*(#[0-9a-f]{6})`))![1];
+
+  it("light page and surface gradients keep body, muted and status text readable", () => {
+    const text = ["foreground", "muted", "muted-strong", "success", "warn", "danger"].map((t) =>
+      fg(lightBlock, `--fds-${t}`),
+    );
+    for (const token of ["--fds-page-background-image", "--fds-brand-gradient-pearl"])
+      for (const stop of hexStops(token, lightBlock))
+        for (const color of text)
+          expect(contrast(color, stop), `${color} on ${stop}`).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it("dark page and surface gradients keep text readable", () => {
+    const text = ["foreground", "muted", "muted-strong", "success", "warn", "danger"].map((t) =>
+      fg(darkBlock, `--fds-${t}`),
+    );
+    const stops = [
+      ...hexStops("--fds-brand-gradient-satin", lightBlock),
+      ...hexStops("--fds-surface-gradient", darkBlock),
+    ];
+    for (const stop of stops)
+      for (const color of text)
+        expect(contrast(color, stop), `${color} on ${stop}`).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it("brand gradients keep their paired ink readable", () => {
+    const ink = fg(lightBlock, "--fds-brand-ink");
+    const cream = fg(lightBlock, "--fds-brand-foreground");
+    for (const stop of hexStops("--fds-brand-gradient-champagne", lightBlock))
+      expect(contrast(ink, stop), `ink on ${stop}`).toBeGreaterThanOrEqual(4.5);
+    for (const stop of hexStops("--fds-brand-gradient-satin", lightBlock))
+      expect(contrast(cream, stop), `cream on ${stop}`).toBeGreaterThanOrEqual(4.5);
+    // The first cobalt stop is a decorative sky highlight; text sits on the rest.
+    for (const stop of hexStops("--fds-brand-gradient-cobalt", lightBlock).slice(1))
+      expect(contrast(cream, stop), `cream on ${stop}`).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it("progress fills stay visible against their tracks", () => {
+    for (const [block, track] of [
+      [lightBlock, fg(lightBlock, "--fds-line")],
+      [darkBlock, fg(darkBlock, "--fds-line")],
+    ] as const)
+      for (const stop of hexStops("--fds-gradient-fill", block))
+        expect(contrast(stop, track), `${stop} on ${track}`).toBeGreaterThanOrEqual(3);
+  });
+});
