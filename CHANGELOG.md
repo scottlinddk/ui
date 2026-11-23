@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.0
+
+### Minor Changes
+
+- [#47](https://github.com/scottlinddk/ui/pull/47) [`4a96e7f`](https://github.com/scottlinddk/ui/commit/4a96e7f4c3e714f0c9e0bd8d3a09ed245c0e9e2f) Thanks [@scottlinddk](https://github.com/scottlinddk)! - Exclusive theme: add champagne, cobalt, satin and pearl brand gradients (`--fds-brand-gradient-*`), a themed page background (`--fds-page-background-image`: pearl in light, navy satin in dark), gradient `Meter`/`Progress` fills and `Metric` tiles. Apply the page gradient with `background-image: var(--fds-page-background-image, none)` on `body`. Other themes are unchanged.
+
 ## 0.11.0
 
 ### Minor Changes
