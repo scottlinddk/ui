@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.1
+
+### Patch Changes
+
+- [#49](https://github.com/scottlinddk/ui/pull/49) [`2ec0741`](https://github.com/scottlinddk/ui/commit/2ec07415ec1c9c7b8f22bab878a3d0b2f469ef97) Thanks [@scottlinddk](https://github.com/scottlinddk)! - Repository tooling only: add a `website-theme` agent skill (`.claude/skills/website-theme/SKILL.md`) describing how to turn a website's look and feel into a new opt-in theme. No change to published styles or components.
+
 ## 0.12.0
 
 ### Minor Changes
