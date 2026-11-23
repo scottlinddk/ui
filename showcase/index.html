@@ -3,11 +3,98 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Scttlnd UI · Component Showcase</title>
+    <title>Scttlnd UI: shared tokens and React components</title>
     <meta
       name="description"
-      content="One considered foundation for every interface. Explore accessible components, shared tokens, and themes for multiple products."
+      content="Shared design tokens and accessible React components for Funder, Investor and Portare. Install @scttlnd/ui from npm and switch themes with one stylesheet."
     />
+    <link rel="canonical" href="https://scottlinddk.github.io/ui/" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Scttlnd UI: one foundation for every interface" />
+    <meta
+      property="og:description"
+      content="Shared design tokens and accessible React components with eleven themes. Open source and MIT licensed."
+    />
+    <meta property="og:url" content="https://scottlinddk.github.io/ui/" />
+    <meta property="og:image" content="https://scottlinddk.github.io/ui/og.png" />
+    <meta
+      property="og:image:alt"
+      content="Scttlnd UI: one foundation for every interface your team ships"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Scttlnd UI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Scttlnd UI is a shared set of design tokens and React components used by Funder, Investor and Portare. It is published on npm as @scttlnd/ui."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which frameworks does it support?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It works with React 18 and React 19. Components that need client state carry a use client directive, so they also work in the Next.js App Router."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I choose a theme?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Import styles.css at the app root. Studio is the default. For Funder, Investor or Portare, import exactly one product theme file after it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will it fight with my existing CSS?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Package styles sit in a cascade layer named fds, so normal unlayered CSS in your app overrides them regardless of specificity or import order."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it include formatting, charts or API clients?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Financial maths, API clients, user state, authentication and business specific charts stay in your app. Components receive pre formatted strings."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it load fonts or make network requests?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The package loads no fonts and makes no network requests. Load DM Sans yourself or point the font token at your own brand font."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How are releases handled?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Releases are automated with Changesets and published to npm with trusted publishing. Pin one version per app and review upgrades with visual checks."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What license is it under?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It is open source under the MIT license, and the code is on GitHub."
+            }
+          }
+        ]
+      }
+    </script>
     <link id="fds-theme" rel="stylesheet" />
   </head>
   <body>

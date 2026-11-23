@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   AlertDialog,
   Badge,
@@ -32,6 +32,7 @@ import {
 } from "../src/index.js";
 import { MorePrimitives } from "./MorePrimitives.js";
 import { PreviewWorkspace } from "./PreviewWorkspace.js";
+import { Benefits, Faq, HowItWorks, InstallCta, RiskReversal, TaglineReveal } from "./Landing.js";
 import { search } from "./theme.js";
 
 const repository = "https://github.com/scottlinddk/ui";
@@ -114,6 +115,7 @@ export function Showcase({
 }) {
   const [message, setMessage] = useState("Choose an action to try the real components.");
   const [copyState, setCopyState] = useState("Copy command");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [mode, setMode] = useState(initialMode);
   const [preview, setPreview] = useState<PreviewTab>("Overview");
   const [savedView, setSavedView] = useState(false);
@@ -121,10 +123,21 @@ export function Showcase({
   const [sortDescending, setSortDescending] = useState(true);
   const [overlay, setOverlay] = useState<"dialog" | "sheet" | "filters" | "alert" | null>(null);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (event: KeyboardEvent) => event.key === "Escape" && setMenuOpen(false);
+    document.addEventListener("keydown", onKey);
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.documentElement.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   async function copyCommand() {
     try {
       await navigator.clipboard.writeText(installCommand);
-      setCopyState("Copied!");
+      setCopyState("Copied");
     } catch {
       setCopyState("Select and copy the command below.");
     }
@@ -147,8 +160,8 @@ export function Showcase({
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <header className="site-header">
-        <a className="wordmark" href="#">
+      <header className="site-header" data-menu={menuOpen ? "open" : "closed"}>
+        <a className="wordmark" href="#" aria-current="page">
           <span className="brand-symbol" aria-hidden="true">
             s<span>+</span>
           </span>
@@ -156,10 +169,11 @@ export function Showcase({
             scttlnd<span className="wordmark__suffix">/ui</span>
           </span>
         </a>
-        <nav aria-label="Main navigation">
+        <nav id="site-nav" aria-label="Main navigation" onClick={() => setMenuOpen(false)}>
           <a href="#components">Components</a>
           <a href={`./components.html${search()}`}>All components</a>
           <a href="#foundations">Foundations</a>
+          <a href="#faq">FAQ</a>
           <a href="#get-started">Get started</a>
         </nav>
         <div className="site-header__tools">
@@ -198,6 +212,17 @@ export function Showcase({
               <Icon name={mode === "light" ? "moon" : "sun"} />
             </Button>
           ) : null}
+          <button
+            type="button"
+            className="menu-toggle"
+            aria-expanded={menuOpen}
+            aria-controls="site-nav"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+          </button>
           <a className="github-link" href={repository} aria-label="View source on GitHub">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
               <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.64-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03a9.6 9.6 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />
@@ -208,35 +233,20 @@ export function Showcase({
       <main id="main">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero__copy">
-            <a className="release-label" href={`${repository}/releases`}>
-              <span className="status-dot" />
-              Shared foundations. Independent products.
-              <Icon name="arrow" size={13} />
-            </a>
-            <h1 id="hero-title">
-              Scttlnd
-              <br />
-              <span>UI</span>
-            </h1>
+            <h1 id="hero-title">One foundation for every interface your team ships</h1>
             <p className="hero__description">
-              A little less noise. A lot more clarity.
-              <br />
-              One considered foundation for every interface.
+              Shared design tokens and accessible React components for Funder, Investor and Portare.
+              Install once, then switch themes with a single stylesheet.
             </p>
             <div className="hero__actions">
-              <a className="action-link action-link--primary" href="#components">
-                Explore components <Icon name="arrow" size={16} />
-              </a>
-              <a className="action-link" href="#get-started">
-                <Icon name="code" size={17} /> Start building
-              </a>
+              <InstallCta copied={copyState === "Copied"} onCopy={copyCommand} />
             </div>
             <div className="hero__meta">
-              <span>React + TypeScript</span>
-              <span aria-hidden="true">/</span>
-              <span>Accessible by default</span>
-              <span aria-hidden="true">/</span>
-              <span>Open source</span>
+              <span>11 themes</span>
+              <span aria-hidden="true">·</span>
+              <span>Checked with axe in every theme</span>
+              <span aria-hidden="true">·</span>
+              <span>MIT licensed</span>
             </div>
           </div>
           {theme === "studio" ? (
@@ -370,6 +380,10 @@ export function Showcase({
             </span>
           </div>
         </div>
+
+        <Benefits />
+        <TaglineReveal />
+        <HowItWorks />
 
         <section id="components" className="components-section">
           <SectionHeading number="01" title="Small pieces. A complete system.">
@@ -645,6 +659,8 @@ export function Showcase({
             </div>
           </div>
         </section>
+        <Faq />
+        <RiskReversal />
         <section id="get-started" className="getting-started">
           <div>
             <span className="section-number">03 / MAKE IT YOURS</span>
@@ -658,6 +674,9 @@ export function Showcase({
               <br />
               Let the details take care of themselves.
             </p>
+            <div className="getting-started__cta">
+              <InstallCta copied={copyState === "Copied"} onCopy={copyCommand} />
+            </div>
             <a className="text-link" href={`${repository}#use-in-frontend-after-npm-release`}>
               Read the documentation <Icon name="arrow" size={15} />
             </a>
@@ -671,8 +690,8 @@ export function Showcase({
                 aria-label="Copy install command"
                 onClick={copyCommand}
               >
-                <Icon name={copyState === "Copied!" ? "check" : "copy"} size={15} />
-                <span>{copyState === "Copied!" ? "Copied!" : "Copy"}</span>
+                <Icon name={copyState === "Copied" ? "check" : "copy"} size={15} />
+                <span>{copyState === "Copied" ? "Copied" : "Copy"}</span>
               </Button>
             </div>
             <pre>

@@ -6,6 +6,18 @@ const legacy: Record<string, Record<string, string>> = JSON.parse(
 );
 const require = createRequire(import.meta.url);
 
+/** Scroll the whole page once so scroll reveals and the tagline word reveal reach their final, full contrast state. */
+async function settleLanding(page: import("@playwright/test").Page) {
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForFunction(
+    () =>
+      !document.querySelector("[data-reveal=armed]") &&
+      !document.querySelector("[data-word]:not([data-active])"),
+  );
+  await page.waitForTimeout(900); // let the 500ms to 700ms transitions finish
+  await page.evaluate(() => window.scrollTo(0, 0));
+}
+
 for (const theme of [
   "studio",
   "classic",
@@ -23,7 +35,12 @@ for (const theme of [
     const errors: string[] = [];
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto(`/?theme=${theme}`);
-    await expect(page.getByRole("heading", { name: "Scttlnd UI", exact: true })).toBeVisible();
+    await expect(
+      page.getByRole("heading", {
+        level: 1,
+        name: "One foundation for every interface your team ships",
+      }),
+    ).toBeVisible();
     await page.waitForFunction(
       () => (document.querySelector("#fds-theme") as HTMLLinkElement).sheet !== null,
     );
@@ -94,6 +111,7 @@ for (const theme of [
       }),
     ).toBe(true);
     await snapshot("open");
+    await settleLanding(page);
     await page.addScriptTag({ path: require.resolve("axe-core/axe.min.js") });
     const violations = await page.evaluate(async () => {
       const axe = (
@@ -255,6 +273,7 @@ test("Studio preview, theme mode and empty state work together", async ({ page }
   await page.reload();
   await expect(page.getByRole("button", { name: "Switch to light mode" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await settleLanding(page);
   await page.addScriptTag({ path: require.resolve("axe-core/axe.min.js") });
   const violations = await page.evaluate(async () => {
     const axe = (
@@ -303,6 +322,7 @@ test("styles.css alone defaults to Studio, including flat panels and dark mode",
   await expect(button).toHaveCSS("background-color", "rgb(211, 248, 115)");
   await expect(button).toHaveCSS("color", "rgb(17, 41, 31)");
   await expect(panel).toHaveCSS("background-image", "none");
+  await settleLanding(page);
   await page.addScriptTag({ path: require.resolve("axe-core/axe.min.js") });
   const violations = await page.evaluate(async () => {
     const axe = (
@@ -415,9 +435,18 @@ for (const path of ["/", "/components.html"]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto(path);
       const result: Record<string, string[]> = {};
+      // Mobile keeps the navigation in a menu: open it to count its links, then close it again.
+      let menuItems: string[] = [];
+      const menu = page.getByRole("button", { name: "Open menu" });
+      if (await menu.isVisible()) {
+        await menu.click();
+        menuItems = await page.evaluate(collect);
+        await page.keyboard.press("Escape");
+        await expect(page.getByRole("button", { name: "Open menu" })).toBeVisible();
+      }
       for (const tab of tabs) {
         if (tab) await page.locator(`#tab-${tab}`).click();
-        result[tab ?? "page"] = await page.evaluate(collect);
+        result[tab ?? "page"] = [...(await page.evaluate(collect)), ...menuItems];
       }
       return result;
     };
